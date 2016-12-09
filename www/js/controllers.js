@@ -30,7 +30,7 @@ angular.module('starter.controllers', [])
 					function (msg) {
 						console.log(msg);
 						$ionicLoading.hide();
-						$state.go('app.start')
+						
 					},
 					function(fail){
 						console.log(fail);
@@ -38,10 +38,10 @@ angular.module('starter.controllers', [])
 				);
 			}
 		});
+       $state.go('app.start')
 	};
 
-    $state.go('app.start')
-  };
+    
 
 })
 
