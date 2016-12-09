@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
 //top view controller
-.controller('AppCtrl', function($scope, $rootScope, $state) {
+.controller('AppCtrl', function($scope, $rootScope, UserService, $ionicActionSheet, $state, $ionicLoading) {
   
   // #SIMPLIFIED-IMPLEMENTATION:
   // Simplified handling and logout function.
@@ -11,12 +11,41 @@ angular.module('starter.controllers', [])
 
   $scope.logout = function(){
     $rootScope.user = {};
-    GooglePlus.logout().then(() => this.userData = null);
+    
+	
+		var hideSheet = $ionicActionSheet.show({
+			destructiveText: 'Logout',
+			titleText: 'Are you sure you want to logout? SmartShop is awsome so I recommend you to stay.',
+			cancelText: 'Cancel',
+			cancel: function() {},
+			buttonClicked: function(index) {
+				return true;
+			},
+			destructiveButtonClicked: function(){
+				$ionicLoading.show({
+					template: 'Logging out...'
+				});
+				// Google logout
+				window.plugins.googleplus.logout(
+					function (msg) {
+						console.log(msg);
+						$ionicLoading.hide();
+						$state.go('app.start')
+					},
+					function(fail){
+						console.log(fail);
+					}
+				);
+			}
+		});
+	};
 
     $state.go('app.start')
   };
 
 })
+
+
 
 // This controller is bound to the "app.account" view
 .controller('AccountCtrl', function($scope, $rootScope) {
@@ -49,6 +78,8 @@ angular.module('starter.controllers', [])
   };
 
 })
+
+
 
 
 .controller('StartCtrl', function ($scope, $state, $rootScope, UserService, $ionicLoading) {
@@ -100,6 +131,8 @@ angular.module('starter.controllers', [])
     };
 
 })
+
+
 .controller('LoginCtrl', function ($scope, $state, $rootScope, UserService, $ionicLoading) {
 
     
@@ -118,6 +151,8 @@ angular.module('starter.controllers', [])
   };
   
 })
+
+
 
 
 // Feeds controller.
@@ -144,6 +179,8 @@ angular.module('starter.controllers', [])
   $scope.doRefresh();
 
 })
+
+
 
 // Shop controller.
 .controller('ShopCtrl', function($scope, $ionicActionSheet, BackendService, CartService) {
@@ -173,6 +210,8 @@ angular.module('starter.controllers', [])
     CartService.saveCart($scope.cart);
   };
 
+    
+    
   // method to add a product to cart via $ionicActionSheet
   $scope.addProduct = function(product){
     $ionicActionSheet.show({
