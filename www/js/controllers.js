@@ -11,6 +11,8 @@ angular.module('starter.controllers', [])
 
   $scope.logout = function(){
     $rootScope.user = {};
+    GooglePlus.logout().then(() => this.userData = null);
+
     $state.go('app.start')
   };
 
