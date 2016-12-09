@@ -34,8 +34,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
+   .state('app', {
+    url: '/app',
+    abstract: true,
+    templateUrl : 'templates/start.html',
+      
+    controller: 'StartCtrl'
+  })
 
- .state('app', {
+ .state('app.sidemenu', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
@@ -92,7 +99,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
   })
 
-  .state('app.feed', {
+  .state('app.sidemenu.feed', {
     url: '/feed',
     data : { auth : true },
     views: {
@@ -103,7 +110,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
 
-  .state('app.shop', {
+  .state('app.sidemenu.shop', {
     url: '/shop',
     data : { auth : true },
     cache : false,

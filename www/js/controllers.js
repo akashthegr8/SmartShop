@@ -82,7 +82,8 @@ angular.module('starter.controllers', [])
 
 
 
-.controller('StartCtrl', function ($scope, $state, $rootScope, UserService, $ionicLoading) {
+.controller('StartCtrl', function ($scope, $state, $rootScope, UserService, $ionicLoading, $ionicSideMenuDelegate) {
+    /*$ionicSideMenuDelegate.canDragContent(false);*/
 
   // #SIMPLIFIED-IMPLEMENTATION:
   // This login function is just an example.
@@ -120,7 +121,7 @@ angular.module('starter.controllers', [])
       
 
         $ionicLoading.hide();
-        $state.go('app.shop');
+        $state.go('app.sidemenu.shop');
       },
       function (msg) {
         $ionicLoading.hide();
@@ -146,8 +147,8 @@ angular.module('starter.controllers', [])
       zip  : "00007",
       avatar : 'sampledata/images/avatar.jpg'
     };*/
-    //finally, we route our app to the 'app.shop' view
-    $state.go('app.shop');
+    //finally, we route our app to the 'app.sidemenu.shop' view
+    $state.go('app.sidemenu.shop');
   };
   
 })
@@ -273,7 +274,7 @@ angular.module('starter.controllers', [])
   $scope.checkout = function(){
     alert("this implementation is up to you!");
     $scope.cart = CartService.resetCart();
-    $state.go('app.shop')
+    $state.go('app.sidemenu.shop')
   }
 
 })
