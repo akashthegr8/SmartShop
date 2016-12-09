@@ -80,6 +80,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   })
+  
 
   .state('app.account', {
       url: '/account',
