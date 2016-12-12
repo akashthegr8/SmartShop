@@ -156,6 +156,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
   
+    .state('app.MapsShow', {
+    url: '/mapsshow',
+    abstract: true,
+    templateUrl: 'templates/mapsShow.html',
+    controller: 'MapsShowCtrl'
+  })
+  
+  
+  
+  
   $urlRouterProvider.otherwise('/start');
 
 });

@@ -12,21 +12,22 @@
   <ion-content>
 
       
-  <div class="row" ng-repeat="shop in shops" data-ng-controller='AppsCtrl' >          
-    <div class="col">{{donor.id}}</div>
-    <div class="col">{{donor.donor_name}}</div>
-    <div class="col">{{donor.donor_address}}</div>
-    <div class="col">{{donor.donor_email}}</div>
-    <div class="col">{{donor.donor_phone}}</div>
+  <div class="row" ng-repeat="shop in shops" data-ng-controller='MapsCtrl' >          
+    <div class="col">{{shop.id}}</div>
+    <div class="col">{{shop.donor_name}}</div>
+    <div class="col">{{shop.donor_address}}</div>
+    <div class="col">{{shop.donor_email}}</div>
+    <div class="col">{{shop.donor_phone}}</div>
           
   </div>
 
 
-    <div ng-repeat="shop in shops">
+    <div ng-repeat="shop in listShops" data-ng-controller='MapsCtrl' >
   
       <div class="item item-image" style="position:relative;">
         <img ng-src="{{product.image}}">
-        <button class="button button-positive product-price" ng-click="addProduct(product)">
+          
+        <!--<button class="button button-positive product-price" ng-click="addProduct(product)">-->
             <p class="white-color product-price-price">$ <b>{{product.price}}</b></p>
             <p class="white-color product-price-text">
                 <i class="ion-android-cart"></i> <span>Buy now</span>

@@ -133,7 +133,7 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('LoginCtrl', function ($scope, $state, $rootScope, UserService, $ionicLoading) {
+.controller('LoginCtrl', function ($scope, $state, $rootScope, UserService, $ionicLoading, $ionicPlatform, $timeout, $http) {
 
     
   $scope.login = function(){
@@ -147,7 +147,30 @@ angular.module('starter.controllers', [])
       avatar : 'sampledata/images/avatar.jpg'
     };*/
     //finally, we route our app to the 'app.shop' view
-    $state.go('app.shop');
+      
+        $ionicLoading.show(); 
+        $http.get("http://10.206.149.184:8080/assetManagement/assets/manageDonor")
+            .success(function (list) {
+                console.log("Shops! " + list);
+                $rootScope.listShops = list;
+    
+        var lengt = $rootScope.listdonor.length;
+
+    
+    
+                $rootScope.listOfShops = JSON.parse(JSON.stringify(list));
+                console.log("date "+ JSON.stringify($scope.listOfShops));
+            })
+            .error(function (data) {
+                alert("ERROR");
+            });
+        console.log("hey")
+        $state.go("app.Maps")
+        $ionicLoading.hide();
+      
+      
+      
+    //$state.go('app.shop');
   };
   
 })
@@ -276,4 +299,66 @@ angular.module('starter.controllers', [])
     $state.go('app.shop')
   }
 
+})
+
+
+
+
+.controller('MapsCtrl', function($scope, $ionicActionSheet, BackendService, CartService) {
+  
+  // In this example feeds are loaded from a json file.
+  // (using "getProducts" method in BackendService, see services.js)
+  // In your application you can use the same approach or load 
+  // products from a web service.
+  
+  //using the CartService to load cart from localStorage
+  $scope.cart = CartService.loadCart();
+
+  $scope.doRefresh = function(){
+      BackendService.getProducts()
+      .success(function(newItems) {
+        $scope.products = newItems;
+      })
+      .finally(function() {
+        // Stop the ion-refresher from spinning (not needed in this view)
+        $scope.$broadcast('scroll.refreshComplete');
+      });
+  };
+
+  // private method to add a product to cart
+  var addProductToCart = function(product){
+    $scope.cart.products.push(product);
+    CartService.saveCart($scope.cart);
+  };
+
+    
+    
+  // method to add a product to cart via $ionicActionSheet
+  $scope.addProduct = function(product){
+    $ionicActionSheet.show({
+       buttons: [
+         { text: '<b>Add to cart</b>' }
+       ],
+       titleText: 'Buy ' + product.title,
+       cancelText: 'Cancel',
+       cancel: function() {
+          // add cancel code if needed ..
+       },
+       buttonClicked: function(index) {
+         if(index == 0){
+           addProductToCart(product);
+           return true;
+         }
+         return true;
+       }
+     });
+  };
+
+  //trigger initial refresh of products
+  $scope.doRefresh();
+
+})
+
+.controller('MapsShowCtrl', function($scope, $ionicActionSheet, BackendService, CartService) {
+  
 })
