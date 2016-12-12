@@ -34,34 +34,38 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
+  
+  .state('start', {
+    url: '/start',
+      
+        templateUrl: 'templates/start.html',
+        controller : 'StartCtrl'
+  })
 
+  .state('login', {
+    url: '/login',
+    cached : false,
+    templateUrl: 'templates/login.html',
+        controller : 'LoginCtrl'
+   
+  })
  .state('app', {
     url: '/app',
     abstract: true,
-    templateUrl: 'templates/menu.html',
+    templateUrl: 'templates/mainV.html',
     controller: 'AppCtrl'
   })
   
-  .state('app.start', {
-    url: '/start',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/start.html',
-        controller : 'StartCtrl'
-      }
-    }
+  .state('app.menu', {
+    url: '/menu',
+    abstract: true,
+    templateUrl: 'templates/mainV.html',
+    controller: 'StartCtrl'
   })
+  
+  
 
-  .state('app.login', {
-    url: '/login',
-    cached : false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/login.html',
-        controller : 'LoginCtrl'
-      }
-    }
-  })
+  
 
   .state('app.forgot', {
     url: '/forgot',
@@ -140,6 +144,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
   
-  $urlRouterProvider.otherwise('/app/start');
+  $urlRouterProvider.otherwise('/start');
 
 });
