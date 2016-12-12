@@ -144,6 +144,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
   
+  .state('app.showMaps', {
+    url: '/maps',
+    data : { auth : true },
+    cache : false,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/maps.html',
+        controller : 'MapsCtrl'
+      }
+    }
+  })
+  
   $urlRouterProvider.otherwise('/start');
 
 });
