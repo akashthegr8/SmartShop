@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 angular.module('starter.controllers', ['ionic', 'ngCordova'])
+=======
+angular.module('starter.controllers', ['ionic'])
+>>>>>>> 826d358b4dfe307762ffd23b70dd1f484ad1a90a
 
 //top view controller
 .controller('AppCtrl', function($scope, $rootScope, UserService, $ionicActionSheet, $state, $ionicLoading) {
@@ -303,7 +307,6 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
 
 
 
-
 .controller('MapsCtrl', function($scope, $ionicActionSheet, BackendService, CartService) {
   
   // In this example feeds are loaded from a json file.
@@ -377,4 +380,80 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
   }, function(error){
     console.log("Could not get location");
   });
+})
+
+.controller('WishlistCtrl', function($scope, $ionicPopup) {
+  
+  $scope.addItem = function(){
+    
+    // Add Item popup
+  var myPopup = $ionicPopup.show({
+    template: '<input type="text" placeholder="Item Category"><br><input type="text" placeholder="Item name">',
+    title: '<b>Add Item to Wishlist</b>',
+    cssClass: 'my-custom-popup',
+    buttons: [
+      { text: '<b>Cancel</b>',
+        type: 'button-positive',
+        onTap: function(){
+          alert("Cancel");
+        } },
+      {
+        text: '<b>Save</b>',
+        type: 'button-positive',
+        onTap: function() {
+          alert("Save");
+        }
+      }
+    ]
+  });
+
+  };
+
+  $scope.navigate = function(){
+
+    // Choose mall
+  var myPopup2 = $ionicPopup.show({
+    template: '<input type="text" placeholder="Mall/Shop name">>',
+    title: '<b>Add Mall/Shop</b>',
+    cssClass: 'my-custom-popup',
+    buttons: [
+      { text: '<b>Cancel</b>',
+        type: 'button-positive',
+        onTap: function(){
+          alert("Cancel");
+        } },{
+        text: '<b>Proceed</b>',
+        type: 'button-positive',
+        onTap: function() {
+          alert("Navigate to map screen");
+        }
+      }
+    ]
+  });
+
+  };
+
+})
+
+
+.controller('RouteCtrl', function($scope) {
+  
+  
+
+})
+
+.controller('ShopDetailsCtrl', function($scope) {
+  
+  $scope.rateShop = function(){
+
+  };
+
+  $scope.markFav = function(){
+
+  };
+
+  $scope.addReview = function(){
+
+  };
+
 })

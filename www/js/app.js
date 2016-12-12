@@ -155,6 +155,42 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   })
+
+  .state('app.wishlist', {
+    url: '/wishlist',
+    data : { auth : true },
+    cache : false,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/wishlist.html',
+        controller : 'WishlistCtrl'
+      }
+    }
+  })
+
+  .state('app.route', {
+    url: '/route',
+    data : { auth : true },
+    cache : false,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/route.html',
+        controller : 'RouteCtrl'
+      }
+    }
+  })
+
+  .state('app.shopdetails', {
+    url: '/shopdetails',
+    data : { auth : true },
+    cache : false,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/shopdetails.html',
+        controller : 'ShopDetailsCtrl'
+      }
+    }
+  })
   
     .state('MapsShow', {
     url: '/mapsshow',
