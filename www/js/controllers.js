@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ionic', 'ngCordova'])
 
 //top view controller
 .controller('AppCtrl', function($scope, $rootScope, UserService, $ionicActionSheet, $state, $ionicLoading) {
@@ -359,6 +359,22 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('MapsShowCtrl', function($scope, $ionicActionSheet, BackendService, CartService) {
-  
+.controller('MapsShowCtrl', function($scope, $ionicActionSheet, BackendService, $cordovaGeolocation) {
+  var options = {timeout: 10000, enableHighAccuracy: true};
+ 
+  $cordovaGeolocation.getCurrentPosition(options).then(function(position){
+ 
+    var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+ 
+    var mapOptions = {
+      center: latLng,
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+ 
+    $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+ 
+  }, function(error){
+    console.log("Could not get location");
+  });
 })

@@ -19,7 +19,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       function(event, toState, toParams, fromState, fromParams){
         if(toState.data && toState.data.auth == true && !$rootScope.user.email){
           event.preventDefault();
-          $state.go('app.login');   
+          /*$state.go('app.login');  */ 
         }
     });
 
@@ -156,9 +156,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
   
-    .state('app.MapsShow', {
+    .state('MapsShow', {
     url: '/mapsshow',
-    abstract: true,
+    
     templateUrl: 'templates/mapsShow.html',
     controller: 'MapsShowCtrl'
   })
