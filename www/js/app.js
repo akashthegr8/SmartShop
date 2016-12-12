@@ -17,7 +17,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
  
     $rootScope.$on('$stateChangeStart', 
       function(event, toState, toParams, fromState, fromParams){
-        if(toState.data && toState.data.auth == true && !$rootScope.user.email){
+        if(toState.data && toState.data.auth == true && !$rootScope.user.emailiD){
           event.preventDefault();
           /*$state.go('app.login');  */ 
         }
@@ -80,7 +80,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     url: '/signup',
     views: {
       'menuContent': {
-        templateUrl: 'templates/signup.html'
+        templateUrl: 'templates/signup.html',
+        controller: 'SignupCtrl'
       }
     }
   })
@@ -144,7 +145,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
   
-  .state('app.showMaps', {
+/*  .state('app.showMaps', {
     url: '/maps',
     data : { auth : true },
     cache : false,
@@ -155,7 +156,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   })
-
+*/
   .state('app.wishlist', {
     url: '/wishlist',
     data : { auth : true },

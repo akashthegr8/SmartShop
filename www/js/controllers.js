@@ -1,8 +1,5 @@
-<<<<<<< HEAD
+
 angular.module('starter.controllers', ['ionic', 'ngCordova'])
-=======
-angular.module('starter.controllers', ['ionic'])
->>>>>>> 826d358b4dfe307762ffd23b70dd1f484ad1a90a
 
 //top view controller
 .controller('AppCtrl', function($scope, $rootScope, UserService, $ionicActionSheet, $state, $ionicLoading) {
@@ -42,7 +39,7 @@ angular.module('starter.controllers', ['ionic'])
 				);
 			}
 		});
-       $state.go('app.start')
+       $state.go('start')
 	};
 
     
@@ -137,7 +134,7 @@ angular.module('starter.controllers', ['ionic'])
 })
 
 
-.controller('LoginCtrl', function ($scope, $state, $rootScope, UserService, $ionicLoading, $ionicPlatform, $timeout, $http) {
+.controller('LoginCtrl', function ($scope, $state, $rootScope, UserService, $ionicLoading, $ionicPlatform, $timeout, $http, $ionicPopup) {
 
     
   $scope.login = function(){
@@ -152,13 +149,31 @@ angular.module('starter.controllers', ['ionic'])
     };*/
     //finally, we route our app to the 'app.shop' view
       
+
+    $ionicLoading.show(); 
+        /*payload = $scope.loginData;
+        $http.get("http://10.207.114.201:8088/login",payload)
+            .success(function (resp) {
+                console.log("Resp! " + resp);
+                
+                })
+            .error(function (data) {
+                alert("ERROR");
+            });
+
+
+
+            $ionicLoading.hide();
+*/
+        $ionicPopup.alert({title : "Login Successful"});
+
         $ionicLoading.show(); 
-        $http.get("http://10.206.149.184:8080/assetManagement/assets/manageDonor")
+        $http.get("http://10.207.114.201:8088/shop")
             .success(function (list) {
                 console.log("Shops! " + list);
                 $rootScope.listShops = list;
     
-        var lengt = $rootScope.listdonor.length;
+                 var lengt = $rootScope.listShops.length;
 
     
     
@@ -169,7 +184,7 @@ angular.module('starter.controllers', ['ionic'])
                 alert("ERROR");
             });
         console.log("hey")
-        $state.go("app.Maps")
+        $state.go("MapsShow")
         $ionicLoading.hide();
       
       
@@ -455,5 +470,31 @@ angular.module('starter.controllers', ['ionic'])
   $scope.addReview = function(){
 
   };
+
+})
+
+
+.controller('SignupCtrl', function($scope, $ionicActionSheet, BackendService, $ionicPopup, $http, $state) {
+
+$scope.signupCall = function(){
+
+  payload = JSON.stringify($scope.data);
+
+  if($scope.data.password !== $scope.data.cpass)
+  {
+ var error = $ionicPopup.alert({title : "Passwords Do Not Match, Enter Again"});
+  }
+  else{
+        $http.post('http://10.207.114.201:8088/register', payload).then(function(result){
+             
+             console.log(result)
+            $ionicPopup.alert({title : "Signup Successful"});
+
+
+             $state.go("MapsShow");
+              });
+}
+}
+
 
 })

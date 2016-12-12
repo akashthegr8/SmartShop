@@ -4,7 +4,7 @@
 <ion-view hide-nav-bar="true">
 
   <ion-header-bar class="bar bar-deepblue bar-deepblue-borderbottom">
-    <button ui-sref="app.start" class="button button-clear button-deepblue-white"><i class="white-color ion-arrow-left-c"></i></button>
+    <button ui-sref="start" class="button button-clear button-deepblue-white"><i class="white-color ion-arrow-left-c"></i></button>
     <h2 class="title">Signup</h2>
   </ion-header-bar>
 
@@ -13,27 +13,27 @@
     <div style="padding-top:50px;">
     <h3 class="sans-pro-light">Please provide this information</h3>
 
-    <label class="item item-input">
-        <input type="text" placeholder="Name">
+    <label class="item item-input ">
+        <input type="text" placeholder="Name" ng-model="data.name">
     </label>
     <label class="item item-input">
-        <input type="text" placeholder="Email Id">
+        <input type="text" placeholder="Email Id" ng-model="data.emailId">
     </label>
     <label class="item item-input">
-        <input type="number" placeholder="Contact No.">
+        <input type="number" placeholder="Contact No." ng-model="data.phoneNo">
     </label>
     <label class="item item-input">
-        <input type="password" placeholder="Password">
+        <input type="password" placeholder="Password" ng-model="data.password">
     </label>
     <label class="item item-input">
-        <input type="password" placeholder="Repeat Password">
+        <input type="password" placeholder="Repeat Password" ng-model="data.cpass">
     </label>
 
     <!--
       #NOT-IMPLEMENTED:
       the button does nothing, implementation is up to you!
     -->
-    <button class="button button-block button-energized" ui-sref="app.account">SIGNUP</button>
+    <button class="button button-block button-energized" ng-click="signupCall()" data-ng-controller="SignupCtrl">SIGNUP</button>
     
     </div>
     

@@ -5,7 +5,7 @@
   
   <!-- in our custom header bar we give a link to start screen -->
   <ion-header-bar class="bar bar-deepblue bar-deepblue-borderbottom">
-    <button ui-sref="app.start" class="button button-clear button-deepblue-white"><i class="white-color ion-arrow-left-c"></i></button>
+    <button ui-sref="start" class="button button-clear button-deepblue-white"><i class="white-color ion-arrow-left-c"></i></button>
     <h2 class="title">Login</h2>
   </ion-header-bar>
 
@@ -13,10 +13,10 @@
 
     <h3 class="sans-pro-light">Enter your credentials</h3>
     <label class="item item-input">
-        <input type="text" placeholder="email">
+        <input type="text" placeholder="email" ng.model="loginData.emailId">
     </label>
     <label class="item item-input">
-        <input type="password" placeholder="password">
+        <input type="password" placeholder="password" ng.model="loginData.password">
     </label>
     <!--
       #SIMPLIFIED-IMPLEMENTATION:
