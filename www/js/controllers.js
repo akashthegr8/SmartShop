@@ -16,7 +16,7 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
 	
 		var hideSheet = $ionicActionSheet.show({
 			destructiveText: 'Logout',
-			titleText: 'Are you sure you want to logout? SmartShop is awsome so I recommend you to stay.',
+			titleText: 'SmartShop is awesome so We recommend you to stay.',
 			cancelText: 'Cancel',
 			cancel: function() {},
 			buttonClicked: function(index) {
@@ -37,6 +37,9 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
 						console.log(fail);
 					}
 				);
+
+
+        $ionicLoading.hide();
 			}
 		});
        $state.go('start')
@@ -149,9 +152,9 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
     };*/
     //finally, we route our app to the 'app.shop' view
       
-
+/*
     $ionicLoading.show(); 
-        /*payload = $scope.loginData;
+        payload = $scope.loginData;
         $http.get("http://10.207.114.201:8088/login",payload)
             .success(function (resp) {
                 console.log("Resp! " + resp);
@@ -172,10 +175,6 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
             .success(function (list) {
                 console.log("Shops! " + list);
                 $rootScope.listShops = list;
-    
-                 var lengt = $rootScope.listShops.length;
-
-    
     
                 $rootScope.listOfShops = JSON.parse(JSON.stringify(list));
                 console.log("date "+ JSON.stringify($scope.listOfShops));
@@ -225,7 +224,7 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
 
 
 // Shop controller.
-.controller('ShopCtrl', function($scope, $ionicActionSheet, BackendService, CartService) {
+.controller('ShopCtrl', function($scope, $ionicActionSheet, BackendService, CartService, $state) {
   
   // In this example feeds are loaded from a json file.
   // (using "getProducts" method in BackendService, see services.js)
@@ -233,6 +232,16 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
   // products from a web service.
   
   //using the CartService to load cart from localStorage
+
+
+
+$scope.showList = function(){
+$state.go('app.shop')
+}
+
+
+
+
   $scope.cart = CartService.loadCart();
 
   $scope.doRefresh = function(){
@@ -320,7 +329,7 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
 
 })
 
-
+/*
 
 .controller('MapsCtrl', function($scope, $ionicActionSheet, BackendService, CartService) {
   
@@ -376,8 +385,8 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
   $scope.doRefresh();
 
 })
-
-.controller('MapsShowCtrl', function($scope, $ionicActionSheet, BackendService, $cordovaGeolocation) {
+*/
+.controller('MapsShowCtrl', function($scope, $ionicActionSheet, BackendService, $cordovaGeolocation, $rootScope, $http ) {
   var options = {timeout: 10000, enableHighAccuracy: true};
  
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
@@ -386,37 +395,123 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
  
     var mapOptions = {
       center: latLng,
-      zoom: 15,
+      zoom: 12,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
  
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+    
+
+    //Show All Markers
+    var newState = 0;
+
+    google.maps.event.addListenerOnce($scope.map, 'idle', function(){
+
+$http.get("http://10.207.114.201:8088/shop")
+            .success(function (list) {
+                console.log("Shops! " + list);
+                
+                $rootScope.listOfShops = JSON.parse(JSON.stringify(list));
+     
+                newState = -1;
+                
+            })
+            .error(function (data) {
+                alert("ERROR");
+            });
+
+
+
+      setTimeout(function () {
+        if (newState == -1) {
+
+     
+            
+
+            for (var i = 0; i <$rootScope.listOfShops.length ; i++) {
+
+              $rootScope.listOfShops[i].image = 'http://10.207.114.201:8088/' + $rootScope.listOfShops[i].image ;
+
+              var marker = new google.maps.Marker({
+                  map: $scope.map,
+                  animation: google.maps.Animation.DROP,
+                  position: new google.maps.LatLng($rootScope.listOfShops[i].location.coordinates[0], $rootScope.listOfShops[i].location.coordinates[1] )
+              });      
+             
+              var infoWindow = new google.maps.InfoWindow({
+                  content: $rootScope.listOfShops[i].name
+              });
+             
+              google.maps.event.addListener(marker, 'click', function () {
+                  infoWindow.open($scope.map, marker);
+              });
+
+
+            }
+
+
+            var marker = new google.maps.Marker({
+                  map: $scope.map,
+                  animation: google.maps.Animation.DROP,
+                  position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+                  icon: 'img/home.png'
+              });      
+             
+              var infoWindow = new google.maps.InfoWindow({
+                  content: "Current Location"
+              });
+             
+              google.maps.event.addListener(marker, 'click', function () {
+                  infoWindow.open($scope.map, marker);
+              });
+
+
+
+        }
+    }, 5000);
+newState = 0;
+ 
+});
+
  
   }, function(error){
-    console.log("Could not get location");
+    console.log("Could not get location" + error);
   });
 })
 
-.controller('WishlistCtrl', function($scope, $ionicPopup) {
+.controller('WishlistCtrl', function($scope, $ionicPopup, $ionicLoading) {
   
+  $scope.data = {};
+  $scope.listDetails = [];
+  var a,b;
+
   $scope.addItem = function(){
-    
     // Add Item popup
   var myPopup = $ionicPopup.show({
-    template: '<input type="text" placeholder="Item Category"><br><input type="text" placeholder="Item name">',
+    template: '<input type="text" placeholder="Item Category" ng-bind="' + a + '" ><br><input type="text" placeholder="Item name" ng-model="data.Item">',
     title: '<b>Add Item to Wishlist</b>',
     cssClass: 'my-custom-popup',
     buttons: [
       { text: '<b>Cancel</b>',
         type: 'button-positive',
         onTap: function(){
-          alert("Cancel");
+          $ionicLoading.show({
+          template: 'No item added to Wishlist',
+          duration: 3000
+        }).then(function(){
+           //console.log("The loading indicator is now displayed");
+        });
         } },
       {
         text: '<b>Save</b>',
         type: 'button-positive',
         onTap: function() {
-          alert("Save");
+          console.log(a)
+          if($scope.data.Category)
+           $scope.listDetails.push($scope.data.Category);
+          else
+           $scope.listDetails.push($scope.data.Item);
         }
       }
     ]

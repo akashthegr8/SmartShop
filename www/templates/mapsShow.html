@@ -1,6 +1,14 @@
 <ion-view>
     <ion-content>
-        Hi
+        
+  		<label class= "item item-input">
+  		<i class = "icon ion-search placeholder-icon"></i>
+  		<input type = "search" placeholder = "Search for Shops, Malls or Products" ng-model="searchQuery"/>
+
+  		</label>
+		<button ng-click="showList()" ng-controller="ShopCtrl">list</button>        
+
+
         <div id="map" data-tap-disabled="true"></div>
     </ion-content>
 </ion-view>

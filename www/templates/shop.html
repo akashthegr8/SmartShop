@@ -11,25 +11,26 @@
 
   <ion-content>
 
-    <div ng-repeat="product in products">
+    <div ng-repeat="shop in listOfShops">
   
       <div class="item item-image" style="position:relative;">
-        <img ng-src="{{product.image}}">
-        <button class="button button-positive product-price" ng-click="addProduct(product)">
-            <p class="white-color product-price-price">$ <b>{{product.price}}</b></p>
+        <img ng-src="{{shop.image}}">
+        <button class="button button-positive product-price">
+        <!-- <button class="button button-positive product-price" ng-click="addProduct(product)"> -->
+            <p class="white-color product-price-price">Rating <b>{{shop.rating}}</b></p>
             <p class="white-color product-price-text">
-                <i class="ion-android-cart"></i> <span>Buy now</span>
+                <i class="ion-android-cart"></i> <span>Visit</span>
             </p>  
         </button> 
     
       </div>
 
       <div class="item ui-gradient-deepblue">
-        <h1 class="title white-color sans-pro-light">{{product.title}}</h1>
+        <h1 class="title white-color sans-pro-light">{{shop.name}}</h1>
       </div>
 
       <div class="item item-body">
-        {{product.description}}
+        {{shop.offers[0]}}
       </div>
     </div>
 

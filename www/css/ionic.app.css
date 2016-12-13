@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /*
 
   DeepBlue Starter Kit
@@ -7902,8 +7902,8 @@ a.button {
   border-radius: 100%; }
 
 .product-price-price {
-  font-size: 2em !important;
-  margin-top: 8px; }
+  font-size: 1em !important;
+  margin-top: 4px; }
 
 .product-price-text {
   margin-top: -15px; }
