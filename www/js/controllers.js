@@ -386,7 +386,7 @@ $state.go('app.shop')
 
 })
 */
-.controller('MapsShowCtrl', function($scope, $ionicActionSheet, BackendService, $cordovaGeolocation, $rootScope, $http ) {
+.controller('MapsShowCtrl', function($scope, $ionicActionSheet, BackendService, $cordovaGeolocation, $rootScope, $http , $ionicLoading ){
   var options = {timeout: 10000, enableHighAccuracy: true};
  
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
