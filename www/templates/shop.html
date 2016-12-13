@@ -1,14 +1,21 @@
 <ion-view view-title="Shop" hide-back-button="true">
 
     <ion-nav-buttons side="right">
-    <span ui-sref="app.cart" >
+    <span ui-sref="app.wishlist" >    
+    <img src="img/wishlist.png" >
+    </span>
+        
+       
+    </ion-nav-buttons>
+<ion-nav-buttons side="secondary">
+     <span ui-sref="app.cart" >
       <button class="button button-clear icon ion-android-cart white-color">
         
       </button>
+        
       <!--<span ng-show="cart.products.length" class="cart-badge ng-hide">{{cart.products.length}}</span>-->
     </span>
     </ion-nav-buttons>
-
   <ion-content>
 
     <div ng-repeat="shop in listOfShops">

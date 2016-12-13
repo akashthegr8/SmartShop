@@ -114,9 +114,9 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
            $rootScope.user = {
               email : user_data.email,
               name : user_data.displayName,
-              address : "YTI",
-              city : "YTI",
-              zip  : "YTI",
+              address : "-",
+              city : "-",
+              zip  : "-",
               avatar : user_data.imageUrl
             };
          
@@ -124,7 +124,7 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
       
 
         $ionicLoading.hide();
-        $state.go('app.shop');
+        $state.go('MapsShow');
       },
       function (msg) {
         $ionicLoading.hide();
@@ -168,21 +168,21 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
 
             $ionicLoading.hide();
 */
-        $ionicPopup.alert({title : "Login Successful"});
+        //$ionicPopup.alert({title : "Login Successful"});
 
         $ionicLoading.show(); 
         $http.get("http://10.207.114.201:8088/shop")
             .success(function (list) {
-                console.log("Shops! " + list);
+                
                 $rootScope.listShops = list;
     
                 $rootScope.listOfShops = JSON.parse(JSON.stringify(list));
-                console.log("date "+ JSON.stringify($scope.listOfShops));
+               
             })
             .error(function (data) {
                 alert("ERROR");
             });
-        console.log("hey")
+        
         $state.go("MapsShow")
         $ionicLoading.hide();
       
@@ -224,7 +224,7 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
 
 
 // Shop controller.
-.controller('ShopCtrl', function($scope, $ionicActionSheet, BackendService, CartService, $state) {
+.controller('ShopCtrl', function($scope, $ionicActionSheet, BackendService, CartService, $state, $rootScope) {
   
   // In this example feeds are loaded from a json file.
   // (using "getProducts" method in BackendService, see services.js)
@@ -410,7 +410,7 @@ $state.go('app.shop')
 
 $http.get("http://10.207.114.201:8088/shop")
             .success(function (list) {
-                console.log("Shops! " + list);
+               
                 
                 $rootScope.listOfShops = JSON.parse(JSON.stringify(list));
      
@@ -421,6 +421,18 @@ $http.get("http://10.207.114.201:8088/shop")
                 alert("ERROR");
             });
 
+$http.get("http://10.207.114.201:8088/product")
+            .success(function (list) {
+                console.log("Products! " + list);
+                
+                $rootScope.products = JSON.parse(JSON.stringify(list));
+     
+                newState = -1;
+                
+            })
+            .error(function (data) {
+                alert("ERROR");
+            });
 
 
       setTimeout(function () {
@@ -469,7 +481,7 @@ $http.get("http://10.207.114.201:8088/shop")
 
 
         }
-    }, 5000);
+    }, 2000);
 newState = 0;
  
 });
@@ -486,6 +498,16 @@ newState = 0;
   $scope.listDetails = [];
   var a,b;
 
+$scope.wishlist = [];
+    
+$scope.products=[];
+    $scope.clickItem = function(item){
+    console.log(item);
+    }
+    
+    
+    
+    
   $scope.addItem = function(){
     // Add Item popup
   var myPopup = $ionicPopup.show({
