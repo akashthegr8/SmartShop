@@ -492,7 +492,7 @@ newState = 0;
   });
 })
 
-.controller('WishlistCtrl', function($scope, $ionicPopup, $ionicLoading) {
+.controller('WishlistCtrl', function($scope, $ionicPopup, $ionicLoading, $rootScope) {
   
   $scope.data = {};
   $scope.listDetails = [];
@@ -500,7 +500,7 @@ newState = 0;
 
 $scope.wishlist = [];
     
-$scope.products=[];
+
     $scope.clickItem = function(item){
     console.log(item);
     }

@@ -8,14 +8,21 @@
 
     <ion-content>
 
+       <!-- <div ng-repeat="product in products">
+            {{product.name}}
+            
+        </div>-->
+        
+        
+        
 		 <ion-item ng-repeat="product in products" 
-                  item="product.name" 
+                  
                   >
-       <label class="checkbox">
-        <input type="checkbox" ng-click="clickItem(item); $event.stopPropagation();" ng-model="item.checked">
+       <label class="checkbox">{{product.name}}
+        <input type="checkbox" ng-click="clickItem({{product.name}})">
          </label>
           
-          Item {{ item.id }}
+         <!-- Item {{ item.id }}-->
         </ion-item>
         
             
